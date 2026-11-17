@@ -17,8 +17,8 @@ import httpx
 import asyncio
 
 app = FastAPI(
-    title="OSDrone-IA",
-    version="0.2.0"
+    title="OSDrone-AI",
+    version="1.0.0"
 )
 
 # --------------------------------------------------
