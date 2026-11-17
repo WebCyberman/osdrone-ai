@@ -1,0 +1,16 @@
+
+# Lancement du serveur
+
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+# Commande MANUEL -> GOTO
+
+Invoke-RestMethod `
+>>     -Uri "http://127.0.0.1:8000/goto" `
+>>     -Method POST `
+>>     -ContentType "application/json" `
+>>     -Body '{
+>>         "x":400,
+>>         "y":400,
+>>         "z":100
+>>     }'

@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+
+  osdrone-ai:
+    container_name: osdrone-ai
+
+    build: .
+
+    restart: unless-stopped
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./app/data:/app/data
+
+    environment:
+      TZ: Europe/Paris
