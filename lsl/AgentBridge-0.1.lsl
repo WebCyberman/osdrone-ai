@@ -10,7 +10,7 @@
 // ============================================================
 
 // URL FastAPI
-string AI_URL = "http://192.168.18.100:8000/api/osdrone";
+string AI_URL = "http://osdrone-ai:8000/api/osdrone";
 
 float TELEMETRY_INTERVAL = 1.0;
 

@@ -24,7 +24,7 @@ services:
       - warning
 
     ports:
-      - "8000:8000"
+      - "8010:8000"
 
     environment:
       TZ: Europe/Paris
@@ -40,3 +40,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 15s
+
+networks:
+  backend:
+    external: true
