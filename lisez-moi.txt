@@ -1,7 +1,11 @@
 
 # Lancement du serveur
 
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --log-level warning
+
+ou
+
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload --log-level warning
 
 # Commande MANUEL -> GOTO
 

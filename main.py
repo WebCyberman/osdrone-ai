@@ -1,4 +1,6 @@
 
+import os
+
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi import WebSocket
@@ -13,13 +15,65 @@ from fastapi.templating import Jinja2Templates
 
 from pydantic import BaseModel
 
+from pathlib import Path
+import logging
+from logging.handlers import RotatingFileHandler
+import json
+
 import httpx
 import asyncio
+
+# --------------------------------------------------
+# HEADER
+# --------------------------------------------------
 
 app = FastAPI(
     title="OSDrone-AI",
     version="1.0.0"
 )
+
+# --------------------------------------------------
+# DEBUG
+# --------------------------------------------------
+
+DEBUG = os.getenv(
+    "DEBUG",
+    "false"
+).lower() == "true"
+
+# --------------------------------------------------
+# DOSSIERS
+# --------------------------------------------------
+
+Path("data").mkdir(
+    exist_ok=True
+)
+
+Path("logs").mkdir(
+    exist_ok=True
+)
+
+# --------------------------------------------------
+# LOGGING
+# --------------------------------------------------
+
+logger = logging.getLogger("osdrone-ai")
+logger.setLevel(logging.INFO)
+
+handler = RotatingFileHandler(
+    "logs/osdrone-ai.log",
+    maxBytes=5 * 1024 * 1024,  # 5 MB
+    backupCount=5,
+    encoding="utf-8"
+)
+
+handler.setFormatter(
+    logging.Formatter(
+        "%(asctime)s - %(levelname)s - %(message)s"
+    )
+)
+
+logger.addHandler(handler)
 
 # --------------------------------------------------
 # STATIC
@@ -124,11 +178,28 @@ async def osdrone(request: Request):
 
     data = await request.json()
 
-    print("OSDRONE >", data)
+    if DEBUG:
+        print("OSDRONE >", data)
 
     event = data.get("event")
 
     if event == "telemetry":
+
+        if DEBUG:
+            logger.info(
+                f"Telemetry : {data}"
+            )
+
+        with open(
+                "data/telemetry.json",
+                "w",
+                encoding="utf-8"
+        ) as f:
+            json.dump(
+                data,
+                f,
+                indent=2
+            )
 
         pos = data.get("position")
 
@@ -172,6 +243,12 @@ async def osdrone(request: Request):
 
         if mode:
             telemetry["mode"] = mode
+
+    else:
+
+        logger.info(
+            f"Event : {data}"
+        )
 
     global pending_command
 
