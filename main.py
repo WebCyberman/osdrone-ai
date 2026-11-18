@@ -2,8 +2,10 @@
 import os
 
 from fastapi import FastAPI
-from fastapi import Request
 from fastapi import WebSocket
+from fastapi import Depends
+
+from fastapi import Request, Header, HTTPException
 
 from fastapi.responses import (
     HTMLResponse,
@@ -14,6 +16,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from pydantic import BaseModel
+
+from dotenv import load_dotenv
 
 from pathlib import Path
 import logging
@@ -31,6 +35,42 @@ app = FastAPI(
     title="OSDrone-AI",
     version="1.0.0"
 )
+
+# --------------------------------------------------
+# APIKEY
+# --------------------------------------------------
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+
+def check_api_key(
+    request: Request,
+    x_api_key: str = Header(None)
+):
+    client_ip = (
+        request.client.host
+        if request.client
+        else "unknown"
+    )
+
+    if not x_api_key:
+        logger.warning(
+            f"API KEY MISSING FROM {client_ip}"
+        )
+        raise HTTPException(
+            status_code=401,
+            detail="API key missing"
+        )
+
+    if x_api_key != API_KEY:
+        logger.warning(
+            f"BAD API KEY FROM {client_ip}"
+        )
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid API key"
+        )
 
 # --------------------------------------------------
 # DEBUG
@@ -174,7 +214,10 @@ async def get_map():
 # --------------------------------------------------
 
 @app.post("/api/osdrone")
-async def osdrone(request: Request):
+async def osdrone(
+    request: Request,
+    _ = Depends(check_api_key)
+):
 
     data = await request.json()
 
@@ -268,7 +311,10 @@ class GotoCommand(BaseModel):
     z: float
 
 @app.post("/goto")
-async def goto(cmd: GotoCommand):
+async def goto(
+    cmd: GotoCommand,
+    _ = Depends(check_api_key)
+):
 
     global pending_command
 

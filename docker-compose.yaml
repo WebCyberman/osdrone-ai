@@ -41,6 +41,9 @@ services:
       retries: 3
       start_period: 15s
 
+    env_file:
+      - .env
+
 networks:
   backend:
     external: true

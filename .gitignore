@@ -139,6 +139,7 @@ checkpoints/
 .env.local
 .env.production
 .env.development
+!.env.example
 
 # ==========================================
 # Temporary files

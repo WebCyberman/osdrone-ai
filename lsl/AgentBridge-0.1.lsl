@@ -45,11 +45,10 @@ sendEvent(string json)
         llHTTPRequest(
             AI_URL,
             [
-                HTTP_METHOD,
-                "POST",
-
-                HTTP_MIMETYPE,
-                "application/json"
+                HTTP_METHOD,"POST",
+                HTTP_MIMETYPE,"application/json",
+                HTTP_CUSTOM_HEADER,"X-API-Key",
+                "QE3vA9KZ7nT4xM8pRs2YwL6cDf1JhVu5BgN0qXt9ErCy4UkPmHa7Ws3FdLb8NjGi"
             ],
             json
         );
