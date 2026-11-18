@@ -1,19 +1,29 @@
-version: "3.9"
-
 services:
 
   osdrone-ai:
+
     container_name: osdrone-ai
 
-    build: .
+    build:
+      context: .
+
+    image: osdrone-ai:latest
 
     restart: unless-stopped
 
     ports:
       - "8000:8000"
 
-    volumes:
-      - ./app/data:/app/data
-
     environment:
       TZ: Europe/Paris
+
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

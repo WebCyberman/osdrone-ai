@@ -40,7 +40,7 @@ templates = Jinja2Templates(
 # --------------------------------------------------
 
 MAP_URL = (
-    "http://waydreams.ddns.net:9010/"
+    "http://192.168.18.21:9010/"
     "index.php?"
     "method=regionImage5ac88c84e532440b92c85e7578020f02"
 )
@@ -86,6 +86,18 @@ async def index(request: Request):
         request=request,
         name="index.html"
     )
+
+# --------------------------------------------------
+# SERVER HEALTH
+# --------------------------------------------------
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "ok",
+        "project": "OSDrone-AI",
+        "websocket": True
+    }
 
 # --------------------------------------------------
 # IMAGE REGION

@@ -1,5 +1,5 @@
 // ============================================================
-// SphereBot AgentBridge v0.1
+// OSDrone AgentBridge v0.1
 //
 // Communication OpenSimulator <-> IA Python
 //
