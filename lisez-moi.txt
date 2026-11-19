@@ -18,3 +18,13 @@ Invoke-RestMethod `
 >>         "y":400,
 >>         "z":100
 >>     }'
+
+ou
+
+Invoke-RestMethod `
+>>  -Uri "http://127.0.0.1:8000/goto" `
+>>  -Method POST `
+>>  -Headers @{ "X-API-Key" = "MonSecretUltraLong" } `
+>>  -ContentType "application/json" `
+>>  -Body '{"x":400,"y":400,"z":100}'
+

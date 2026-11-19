@@ -176,6 +176,28 @@ Accès :
 ```text
 http://<adresse-ip>:8000
 ```
+---
+
+## Configuration
+
+Copier le fichier d'exemple :
+
+```bash
+cp .env.example .env
+```
+
+Générer une clé API :
+
+```python
+import secrets
+print(secrets.token_urlsafe(48))
+```
+
+Renseigner ensuite la valeur dans :
+
+```env
+API_KEY=VOTRE_CLE_GENEREE
+```
 
 ---
 

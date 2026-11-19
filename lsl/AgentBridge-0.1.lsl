@@ -1,5 +1,5 @@
 // ============================================================
-// OSDrone AgentBridge v0.1
+// OSDrone-AI AgentBridge v0.1
 //
 // Communication OpenSimulator <-> IA Python
 //
@@ -48,7 +48,7 @@ sendEvent(string json)
                 HTTP_METHOD,"POST",
                 HTTP_MIMETYPE,"application/json",
                 HTTP_CUSTOM_HEADER,"X-API-Key",
-                "QE3vA9KZ7nT4xM8pRs2YwL6cDf1JhVu5BgN0qXt9ErCy4UkPmHa7Ws3FdLb8NjGi"
+                "VOTRE_CLE_ULTRA_LONGUE"
             ],
             json
         );
@@ -288,7 +288,7 @@ default
     state_entry()
     {
         llOwnerSay(
-            "SphereBot AgentBridge online"
+            "OSDrone AgentBridge online"
         );
 
         llSetTimerEvent(
