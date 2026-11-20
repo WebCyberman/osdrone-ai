@@ -11,6 +11,8 @@ OSDrone-AI est une plateforme de recherche et d'expérimentation dédiée à la 
 ## Interface principale provisoire
 
 ![Fenêtre principale](screens/Capture-API-20261117.png)
+![Fenêtre principale](screens/Capture-API-20261118.png)
+![Fenêtre principale](screens/Capture-API-20261120.png)
 
 ---
 
